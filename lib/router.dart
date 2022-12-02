@@ -5,7 +5,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
     case AuthScreen.routeName:
       return MaterialPageRoute(
-        builder: (_) => AuthScreen(),
+        builder: (_) => const AuthScreen(),
       );
     default:
       return MaterialPageRoute(

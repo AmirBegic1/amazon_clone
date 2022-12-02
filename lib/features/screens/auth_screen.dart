@@ -1,6 +1,7 @@
 import 'package:amazon_clone/common/widgets/custom_nutton.dart';
 import 'package:amazon_clone/common/widgets/custom_textfield.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth {
@@ -10,7 +11,7 @@ enum Auth {
 
 class AuthScreen extends StatefulWidget {
   static const String routeName = '/auth-screen';
-  AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -20,7 +21,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
   final _signupFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
-
+  final AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -33,6 +34,16 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
   }
 
+  void signUpUser() {
+    authService.signUp(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+      name: _nameController.text,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: GlobalVariables.greyBackgroundCOlor,
@@ -93,7 +104,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           hintText: 'Password',
                         ),
                         const SizedBox(height: 10),
-                        CustomButton(text: "Register", onTap: () {}),
+                        CustomButton(
+                            text: "Register",
+                            onTap: () {
+                              if (_signupFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                            }),
                       ],
                     ),
                   ),
