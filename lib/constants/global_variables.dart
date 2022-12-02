@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // String uri = 'http://<yourip>:3000';
 
-String uri = 'htpp://37.203.72.189:3000';
+String uri = 'http://192.168.1.67:3000';
 
 class GlobalVariables {
   // COLORS
